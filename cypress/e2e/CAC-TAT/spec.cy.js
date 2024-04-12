@@ -206,7 +206,7 @@ it('marca o tipo de atendimento "Feedback"', function(){
   .should('have.value','feedback')
 })
 
-it.only('marca cada tipo de atendimento', function(){
+it('marca cada tipo de atendimento', function(){
   cy.get('input[type="radio"]')
   .each(function($radio){
     cy.wrap($radio).check()
