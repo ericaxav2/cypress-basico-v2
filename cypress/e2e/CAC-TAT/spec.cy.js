@@ -131,7 +131,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('#firstName').type ('Érica')
     cy.get('#lastName').type('Xavier')
     cy.get('#email').type('ericacom')
-    cy.get('#phone-checkbox').click()
+    cy.get('#phone-checkbox').check()
   
     cy.get('#open-text-area').type('outro texto pro telefone')
     cy.contains('button', 'Enviar').click()
@@ -214,4 +214,12 @@ it('marca cada tipo de atendimento', function(){
   })
 })
 
+it('marca ambos checkboxes, depois desmarca o último', function(){
+  cy.get('input[type="checkbox"]')
+    .check()
+    .should('be.checked')
+    .last()
+    .uncheck()
+    .should('not.be.checked')
+  })
 })
