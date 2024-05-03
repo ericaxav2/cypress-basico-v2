@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
-describe('Central de Atendimento ao Cliente TAT', function() {
+describe('Central de Atendimento ao Cliente TAT',
+function() {
   beforeEach (function() {
     cy.visit('./src/index.html')
   })
@@ -255,6 +256,7 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
   })
 
   it('acessa a página da política de privacidade removendo o target e então clicando no link', function(){
+    cy.viewport(410, 880)
     cy.get('#privacy a').invoke('removeAttr', 'target')
       .click()
     cy.contains('CAC TAT - Política de privacidade').should('be.visible')
