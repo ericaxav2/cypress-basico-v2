@@ -2,6 +2,7 @@
 
 describe('Central de Atendimento ao Cliente TAT',
 function() {
+  const threeSeconds = 3000
   beforeEach (function() {
     cy.visit('./src/index.html')
   })
@@ -260,5 +261,42 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
     cy.get('#privacy a').invoke('removeAttr', 'target')
       .click()
     cy.contains('CAC TAT - Política de privacidade').should('be.visible')
+  })
+
+  it('preenche os campos obrigatórios, envia o formulário e congela relógio', function() {
+    cy.clock()
+    cy.get('#firstName').type ('Érica')
+    cy.get('#lastName').type('Xavier')
+    cy.get('#email').type('erica@gmail.com')
+    cy.get('#open-text-area').type('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem velit, porttitor a scelerisque vitae, scelerisque pellentesque leo. Nullam feugiat fermentum massa, at viverra eros congue nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc vel condimentum libero. Maecenas bibendum ornare ligula sit amet imperdiet. Aenean eget libero eros. Nunc mollis nisl id mauris commodo, commodo varius orci interdum. Duis rutrum orci fringilla, rhoncus enim id, molestie sem. In tristique elit mi. Aliquam mattis, nulla sed eleifend condimentum, augue diam imperdiet tortor, efficitur convallis felis leo sollicitudin nibh. Cras porta eget nisl quis feugiat. Cras efficitur dui eget tortor finibus tempor. Aenean scelerisque, augue nec euismod tincidunt, metus neque elementum quam, vel lobortis ante purus a ex. Sed eu ante convallis, iaculis dolor in, efficitur enim.', {delay:(0)})
+    cy.get('button[type="submit"]').click()
+    
+    cy.get('.success') 
+      .should('contain', 'Mensagem enviada com sucesso.')
+      .and('be.visible')
+
+    cy.tick(threeSeconds)
+    cy.get('.success') 
+      .should('contain', 'Mensagem enviada com sucesso.')
+      .and('not.be.visible')
+  })
+
+  it('exibe mensagem de erro ao submeter o formulário com um e-mail com formato inválido e congela relógio', function() {
+    cy.clock()
+    cy.get('#firstName').type ('Érica')
+    cy.get('#lastName').type('Xavier')
+    cy.get('#email').type('ericacom')
+    cy.get('#open-text-area').type('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem velit, porttitor a scelerisque vitae, scelerisque pellentesque leo. Nullam feugiat fermentum massa, at viverra eros congue nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc vel condimentum libero. Maecenas bibendum ornare ligula sit amet imperdiet. Aenean eget libero eros. Nunc mollis nisl id mauris commodo, commodo varius orci interdum. Duis rutrum orci fringilla, rhoncus enim id, molestie sem. In tristique elit mi. Aliquam mattis, nulla sed eleifend condimentum, augue diam imperdiet tortor, efficitur convallis felis leo sollicitudin nibh. Cras porta eget nisl quis feugiat. Cras efficitur dui eget tortor finibus tempor. Aenean scelerisque, augue nec euismod tincidunt, metus neque elementum quam, vel lobortis ante purus a ex. Sed eu ante convallis, iaculis dolor in, efficitur enim.', {delay:(0)})
+    cy.get('button[type="submit"]')
+      .click()
+
+    cy.get('.error') 
+      .should('contain',  'Valide os campos obrigatórios!')
+      .and('be.visible')
+  
+    cy.tick(threeSeconds)
+    cy.get('.error') 
+      .should('contain',  'Valide os campos obrigatórios!')
+      .and('not.be.visible')
   })
 })
