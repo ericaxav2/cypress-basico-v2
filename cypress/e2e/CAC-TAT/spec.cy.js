@@ -299,4 +299,30 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
       .should('contain',  'Valide os campos obrigatórios!')
       .and('not.be.visible')
   })
+
+  Cypress._.times(3,function(){
+    it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique e repete quatro vezes', function(){
+      cy.get('#privacy a').should('have.attr', 'target', '_blank')
+      //não precisava rodar varias vezes, fizemos só para testar o times
+    })
+  })
+
+  it.only('exibe e esconde as mensagens de sucesso e erro usando o .invoke()', function(){
+  cy.get('.success')
+    .invoke('show')
+    .should('contain', 'Mensagem enviada com sucesso.')
+    .and('be.visible')
+    .invoke('hide')
+    .should('contain', 'Mensagem enviada com sucesso.')
+    .and('not.be.visible')
+  cy.get('.error') 
+    .invoke('show')
+    .should('contain',  'Valide os campos obrigatórios!')
+    .and('be.visible')
+    .invoke('hide') 
+    .should('contain',  'Valide os campos obrigatórios!')
+    .and('not.be.visible')
+  })
+  
+
 })
