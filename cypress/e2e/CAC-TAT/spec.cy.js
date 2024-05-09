@@ -307,7 +307,7 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
     })
   })
 
-  it.only('exibe e esconde as mensagens de sucesso e erro usando o .invoke()', function(){
+  it('exibe e esconde as mensagens de sucesso e erro usando o .invoke()', function(){
   cy.get('.success')
     .invoke('show')
     .should('contain', 'Mensagem enviada com sucesso.')
@@ -323,6 +323,20 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
     .should('contain',  'Valide os campos obrigatórios!')
     .and('not.be.visible')
   })
-  
+  it('preenche os campo de texto usando invoke()', function() {
+    cy.get('#open-text-area')
+      .invoke('val', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem velit, porttitor a scelerisque vitae, scelerisque pellentesque leo. Nullam feugiat fermentum massa, at viverra eros congue nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc vel condimentum libero. Maecenas bibendum ornare ligula sit amet imperdiet. Aenean eget libero eros. Nunc mollis nisl id mauris commodo, commodo varius orci interdum. Duis rutrum orci fringilla, rhoncus enim id, molestie sem. In tristique elit mi. Aliquam mattis, nulla sed eleifend condimentum, augue diam imperdiet tortor, efficitur convallis felis leo sollicitudin nibh. Cras porta eget nisl quis feugiat. Cras efficitur dui eget tortor finibus tempor. Aenean scelerisque, augue nec euismod tincidunt, metus neque elementum quam, vel lobortis ante purus a ex. Sed eu ante convallis, iaculis dolor in, efficitur enim.')
+  })
 
+  it.only('faz uma requisição HTTP', function(){
+    cy.request({
+      method: 'GET',
+    url: 'https://cac-tat.s3.eu-central-1.amazonaws.com/index.html'
+    })
+      .then((response) => {
+      expect(response.status).to.equal(200);
+      expect(response.statusText).to.equal('OK');
+      expect(response.body).include('CAC TAT')
+      })
+  })
 })
