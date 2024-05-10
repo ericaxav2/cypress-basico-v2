@@ -328,7 +328,7 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
       .invoke('val', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lorem velit, porttitor a scelerisque vitae, scelerisque pellentesque leo. Nullam feugiat fermentum massa, at viverra eros congue nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc vel condimentum libero. Maecenas bibendum ornare ligula sit amet imperdiet. Aenean eget libero eros. Nunc mollis nisl id mauris commodo, commodo varius orci interdum. Duis rutrum orci fringilla, rhoncus enim id, molestie sem. In tristique elit mi. Aliquam mattis, nulla sed eleifend condimentum, augue diam imperdiet tortor, efficitur convallis felis leo sollicitudin nibh. Cras porta eget nisl quis feugiat. Cras efficitur dui eget tortor finibus tempor. Aenean scelerisque, augue nec euismod tincidunt, metus neque elementum quam, vel lobortis ante purus a ex. Sed eu ante convallis, iaculis dolor in, efficitur enim.')
   })
 
-  it.only('faz uma requisição HTTP', function(){
+  it('faz uma requisição HTTP', function(){
     cy.request({
       method: 'GET',
     url: 'https://cac-tat.s3.eu-central-1.amazonaws.com/index.html'
@@ -338,5 +338,11 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
       expect(response.statusText).to.equal('OK');
       expect(response.body).include('CAC TAT')
       })
+  })
+
+  it.only('exibe gato', function(){
+    cy.get('span[id="cat"]')
+      .invoke('show')
+      .should('be.visible')
   })
 })
