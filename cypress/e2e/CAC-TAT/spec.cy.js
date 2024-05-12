@@ -347,5 +347,4 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
   })
 
 
-  //Adicionando ci ao pipeline
 })
