@@ -345,4 +345,7 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
       .invoke('show')
       .should('be.visible')
   })
+
+
+  //Adicionando ci ao pipeline
 })
