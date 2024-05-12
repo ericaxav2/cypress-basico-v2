@@ -340,7 +340,7 @@ it('marca ambos checkboxes, depois desmarca o último', function(){
       })
   })
 
-  it.only('exibe gato', function(){
+  it('exibe gato', function(){
     cy.get('span[id="cat"]')
       .invoke('show')
       .should('be.visible')
